@@ -1,15 +1,26 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "test radio",
-            "modelConfiguration": {
-                "fallbackIntentSensitivity": {
-                    "level": "LOW"
-                }
-            },
+            "invocationName": "hello world",
             "intents": [
                 {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
                     "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
                     "samples": []
                 },
                 {
@@ -18,14 +29,6 @@
                 },
                 {
                     "name": "AMAZON.ResumeIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.StopIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.CancelIntent",
                     "samples": []
                 },
                 {
@@ -61,25 +64,11 @@
                     "samples": []
                 },
                 {
-                    "name": "AMAZON.HelpIntent",
-                    "samples": [
-                        "help",
-                        "help me",
-                        "how does this work",
-                        "what should i do"
-                    ]
-                },
-                {
-                    "name": "AMAZON.FallbackIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AboutIntent",
+                    "name": "PlayRadioStationIntent",
                     "slots": [],
                     "samples": [
-                        "about",
-                        "what is this",
-                        "tell me about this"
+                        "play smooth jazz",
+                        "smooth jazz"
                     ]
                 }
             ],
