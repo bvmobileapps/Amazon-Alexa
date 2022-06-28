@@ -144,7 +144,7 @@ class UnhandledFeaturesIntentHandler(AbstractRequestHandler):
                 )
     
     def handle(self, handler_input):
-        speech_output = "This command is not supported. Say Play, Stop, or Pause."
+        speak_output = "This command is not supported. Say Play, Stop, or Pause."
         return (
             handler_input.response_builder
                 .speak(speech_output)
