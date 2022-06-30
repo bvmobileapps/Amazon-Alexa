@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# This Alexa Skill plays the NAAB Smooth Jazz radio station.
+# This Alexa Skill plays a radio station from the specified URL.
 import logging
 import ask_sdk_core.utils as ask_utils
 
