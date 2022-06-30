@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 # Audio stream metadata
+# The stream URL needs a valid SSL certificate and needs to start with 'https' and not 'http' otherwise it will not play.
 STREAMS = [
   {
     "token": '1',
@@ -50,9 +51,9 @@ STREAMS = [
 ]
 
 # Strings used to reply to user input. Modify them here if necessary.
-STR_HELP_INTENT = ("You can say play {} to start the radio.".format(stream["metadata"]["title"]))
+STR_HELP_INTENT = ("You can say play {} to start the radio.".format(STREAMS[0]["metadata"]["title"]))
 STR_UNSUPPORTED_COMMAND = ("This command is not supported. Say Play, Stop, or Pause.")
-STR_FALLBACK_INTENT = ("Hmm, I'm not sure. You can say play {} to start the radio.".format(stream["metadata"]["title"]))
+STR_FALLBACK_INTENT = ("Hmm, I'm not sure. You can say play {} to start the radio.".format(STREAMS[0]["metadata"]["title"]))
 STR_EXCEPTION = ("Sorry, I had trouble doing what you asked. Please try again.")
 
 # Automatically plays the radio station when activity is launched without intent.
@@ -82,7 +83,6 @@ class LaunchRequestHandler(AbstractRequestHandler):
                     .set_should_end_session(True)
                     .response
                 )
-
 
 # Used to start the radio station. Right now it is set up to only handle one radio station.
 class PlayRadioStationHandler(AbstractRequestHandler):
@@ -135,7 +135,6 @@ class ResumeIntentHandler(AbstractRequestHandler):
                     .response
                 )
 
-
 # This handler handles all the required audio player intents which are not supported by the skill yet. 
 class UnhandledFeaturesIntentHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
@@ -153,7 +152,7 @@ class UnhandledFeaturesIntentHandler(AbstractRequestHandler):
         speak_output = STR_UNSUPPORTED_COMMAND
         return (
             handler_input.response_builder
-                .speak(speech_output)
+                .speak(speak_output)
                 .set_should_end_session(False)
                 .response
             )
@@ -203,9 +202,9 @@ class FallbackIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.info("In FallbackIntentHandler")
-        speech = STR_FALLBACK_INTENT
+        speak_output = STR_FALLBACK_INTENT
 
-        return handler_input.response_builder.speak(speech).ask(reprompt).response
+        return handler_input.response_builder.speak(speak_output).response
 
 # Handler for Session End.
 class SessionEndedRequestHandler(AbstractRequestHandler):
