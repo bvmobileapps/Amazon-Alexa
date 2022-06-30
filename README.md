@@ -24,6 +24,8 @@ Created 6/29/2022
     ![image](https://user-images.githubusercontent.com/41808114/176575007-00c977f8-65a1-49cf-8cf7-50d5342a6d28.png)
   7. If necessary, modify the strings for the reponses.
   ![image](https://user-images.githubusercontent.com/41808114/176575275-edad3591-b458-4c8e-af55-b0a53e8c75e4.png)
-  8. Navigate to the **Test** tab at the top of the page. Enable the skill testing by selecting **Development**. Here you can test the skill in the simulator, or through your Alexa enabled device by using the phrase _"Alexa, play {skill invocation name}."_
+  8. When finished, click **Deploy** at the top of the page.
+  ![image](https://user-images.githubusercontent.com/41808114/176580377-75141427-22aa-474b-8d9b-1d0680a40cbe.png)
+  9. Navigate to the **Test** tab at the top of the page. Enable the skill testing by selecting **Development**. Here you can test the skill in the simulator, or through your Alexa enabled device by using the phrase _"Alexa, play {skill invocation name}."_
   ![image](https://user-images.githubusercontent.com/41808114/176577008-c315cd5b-f1a0-4416-937f-dc69fc864bd8.png)
-  9. To deploy, use the **Distribution** tab. 
+  10. To deploy, use the **Distribution** tab. 
