@@ -38,7 +38,7 @@ STREAMS = [
       "backgroundImage": {
         "sources": [
           {
-            "contentDescription": 'example image',
+            "contentDescription": '',
             "url": '',
             "widthPixels": 1200,
             "heightPixels": 800
@@ -48,6 +48,12 @@ STREAMS = [
     }
   }
 ]
+
+# Strings used to reply to user input. Modify them here if necessary.
+STR_HELP_INTENT = ("You can say play {} to start the radio.".format(stream["metadata"]["title"]))
+STR_UNSUPPORTED_COMMAND = ("This command is not supported. Say Play, Stop, or Pause.")
+STR_FALLBACK_INTENT = ("Hmm, I'm not sure. You can say play {} to start the radio.".format(stream["metadata"]["title"]))
+STR_EXCEPTION = ("Sorry, I had trouble doing what you asked. Please try again.")
 
 # Automatically plays the radio station when activity is launched without intent.
 class LaunchRequestHandler(AbstractRequestHandler):
@@ -104,7 +110,7 @@ class PlayRadioStationHandler(AbstractRequestHandler):
                     .response
                 )
 
-
+# Handler for when the user says "resume" or anything along those lines.
 class ResumeIntentHandler(AbstractRequestHandler):
     def can_handle(self, handler_input):
         return ask_utils.is_intent_name("AMAZON.ResumeIntent")(handler_input)
@@ -144,7 +150,7 @@ class UnhandledFeaturesIntentHandler(AbstractRequestHandler):
                 )
     
     def handle(self, handler_input):
-        speak_output = "This command is not supported. Say Play, Stop, or Pause."
+        speak_output = STR_UNSUPPORTED_COMMAND
         return (
             handler_input.response_builder
                 .speak(speech_output)
@@ -152,16 +158,15 @@ class UnhandledFeaturesIntentHandler(AbstractRequestHandler):
                 .response
             )
 
-
+# Handler for Help Intent.
 class HelpIntentHandler(AbstractRequestHandler):
-    """Handler for Help Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return ask_utils.is_intent_name("AMAZON.HelpIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "You can say play smooth jazz to start the radio."
+        speak_output = STR_HELP_INTENT
 
         return (
             handler_input.response_builder
@@ -170,9 +175,8 @@ class HelpIntentHandler(AbstractRequestHandler):
                 .response
         )
 
-
+# Single handler for Cancel and Stop Intent.
 class CancelOrStopIntentHandler(AbstractRequestHandler):
-    """Single handler for Cancel and Stop Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return (ask_utils.is_intent_name("AMAZON.CancelIntent")(handler_input)
@@ -190,8 +194,8 @@ class CancelOrStopIntentHandler(AbstractRequestHandler):
                     .response
                 )
 
+# Single handler for Fallback Intent.
 class FallbackIntentHandler(AbstractRequestHandler):
-    """Single handler for Fallback Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return ask_utils.is_intent_name("AMAZON.FallbackIntent")(handler_input)
@@ -199,13 +203,12 @@ class FallbackIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.info("In FallbackIntentHandler")
-        speech = "Hmm, I'm not sure. You can say play smooth jazz to start the radio."
-        reprompt = "I didn't catch that. What can I help you with?"
+        speech = STR_FALLBACK_INTENT
 
         return handler_input.response_builder.speak(speech).ask(reprompt).response
 
+# Handler for Session End.
 class SessionEndedRequestHandler(AbstractRequestHandler):
-    """Handler for Session End."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
         return ask_utils.is_request_type("SessionEndedRequest")(handler_input)
@@ -217,12 +220,10 @@ class SessionEndedRequestHandler(AbstractRequestHandler):
 
         return handler_input.response_builder.response
 
-
+# Generic error handling to capture any syntax or routing errors. If you receive an error
+# stating the request handler chain is not found, you have not implemented a handler for
+# the intent being invoked or included it in the skill builder below.
 class CatchAllExceptionHandler(AbstractExceptionHandler):
-    """Generic error handling to capture any syntax or routing errors. If you receive an error
-    stating the request handler chain is not found, you have not implemented a handler for
-    the intent being invoked or included it in the skill builder below.
-    """
     def can_handle(self, handler_input, exception):
         # type: (HandlerInput, Exception) -> bool
         return True
@@ -231,7 +232,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
         # type: (HandlerInput, Exception) -> Response
         logger.error(exception, exc_info=True)
 
-        speak_output = "Sorry, I had trouble doing what you asked. Please try again."
+        speak_output = STR_EXCEPTION
 
         return (
             handler_input.response_builder
@@ -243,8 +244,6 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 # The SkillBuilder object acts as the entry point for your skill, routing all request and response
 # payloads to the handlers above. Make sure any new handlers or interceptors you've
 # defined are included below. The order matters - they're processed top to bottom.
-
-
 sb = SkillBuilder()
 
 sb.add_request_handler(LaunchRequestHandler())
