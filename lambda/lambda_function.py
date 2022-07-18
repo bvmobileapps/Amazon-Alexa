@@ -24,12 +24,12 @@ STREAMS = [
     "token": '1',
     "url": 'https://streaming.live365.com/a27716',
     "metadata": {
-      "title": 'NAAB Smooth Jazz Radio',
+      "title": 'Radio Station Name Goes Here',
       "subtitle": '',
       "art": {
         "sources": [
           {
-            "contentDescription": 'NAAB Smooth Jazz radio station image',
+            "contentDescription": 'Radio Station Logo',
             "url": 'https://www.blackvibes.com/images/bvc/212/45908-naab-smooth-jazz-nati.jpg',
             "widthPixels": 512,
             "heightPixels": 512
