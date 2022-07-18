@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "smooth jazz nation",
+            "invocationName": "radio station name",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -67,8 +67,7 @@
                     "name": "PlayRadioStationIntent",
                     "slots": [],
                     "samples": [
-                        "play smooth jazz",
-                        "smooth jazz"
+                        "bvmobileapps"
                     ]
                 }
             ],
